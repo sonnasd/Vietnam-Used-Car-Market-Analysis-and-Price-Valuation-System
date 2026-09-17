@@ -78,10 +78,9 @@ pip install -r requirements.txt
 
 ## 4. Quy chuan lam viec voi Git va phan nhanh
 
-He thong phan nhanh gom 2 nhanh goc va cac nhanh tinh nang doc lap:
+He thong phan nhanh gom 1 nhanh chinh va cac nhanh tinh nang doc lap:
 
-- main: Nhanh luu tru phien ban on dinh nhat phuc vu bao cao cuoi ky.
-- develop: Nhanh tich hop chung cho toan doi.
+- main: Nhanh chinh luu tru ma nguon cua toan bo du an.
 - feature/crawler-and-ml: Nhanh lam viec cua Do Khanh Duy.
 - feature/data-cleaning-dashboard: Nhanh lam viec cua Quach Thien Nhan.
 - feature/chatbot-and-fastapi: Nhanh lam viec cua Nguyen Huy Son.
@@ -93,9 +92,9 @@ Cac buoc lam viec chuan:
 git checkout <ten-nhanh-ca-nhan>
 ```
 
-2. Dong bo du lieu moi nhat tu nhanh develop:
+2. Dong bo du lieu moi nhat tu nhanh main:
 ```bash
-git pull origin develop
+git pull origin main
 ```
 
 3. Commit va push ma nguon len nhanh ca nhan:
@@ -105,4 +104,4 @@ git commit -m "Mo ta ngan gon noi dung thay doi"
 git push origin <ten-nhanh-ca-nhan>
 ```
 
-4. Tao Pull Request (PR) tren GitHub tu nhanh ca nhan vao nhanh develop de cac thanh vien khac review truoc khi gop code.
+4. Tao Pull Request (PR) tren GitHub tu nhanh ca nhan vao nhanh main de cac thanh vien khac review truoc khi gop code.
