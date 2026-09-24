@@ -44,5 +44,9 @@ Thumbs.db
 
 !data/raw/cars.csv
 data/processed/*.csv
+!data/processed/cars_cleaned.csv
+!data/processed/text_flags.csv
 !data/processed/.gitkeep
 !data/geojson/.gitkeep
+
+01_crawler_and_ml/crawler/data/
