@@ -38,7 +38,9 @@ Bao cao duoc viet truc tiep trong cac Jupyter notebook: moi notebook gom code Py
 Vietnam-Used-Car-Market-Analysis-and-Price-Valuation-System/
 |-- 01_crawler_and_ml/                 Do Khanh Duy
 |   |-- crawler/
-|   |   `-- scraper.py                 crawler API Cho Tot
+|   |   |-- scraper.py                 crawler API Cho Tot
+|   |   |-- fetch_descriptions.py      cao mo ta chi tiet theo list_id, co checkpoint
+|   |   `-- test_fetch_descriptions.py unit test logic crawler
 |   |-- 01_thu_thap_du_lieu.ipynb
 |   `-- 05_mo_hinh_dinh_gia.ipynb
 |-- 02_analytics_and_dashboard/        Quach Thien Nhan
@@ -50,7 +52,10 @@ Vietnam-Used-Car-Market-Analysis-and-Price-Valuation-System/
 |   `-- 06_phat_hien_deal.ipynb
 |-- data/
 |   |-- raw/
-|   |   `-- cars.csv                   du lieu goc: 15.000 tin x 35 truong
+|   |   |-- cars.csv                   du lieu goc: 15.000 tin x 35 truong
+|   |   |-- descriptions.csv           list_id,description; chi cac mo ta lay thanh cong
+|   |   |-- description_status.csv     trang thai kiem tra cua tung list_id
+|   |   `-- descriptions_report.json   do phu, thoi diem va gioi han lan chay
 |   |-- processed/                     du lieu da xu ly, dung chung
 |   `-- geojson/                       ban do 63 tinh/thanh
 |-- models/                            mo hinh .pkl
@@ -115,6 +120,40 @@ Cai dat cac goi thu vien can thiet:
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Cao bo sung mo ta dai
+
+Tu thu muc goc, chay het cac `list_id` trong `cars.csv`:
+
+```bash
+python 01_crawler_and_ml/crawler/fetch_descriptions.py
+```
+
+Mac dinh bat dau 1 yeu cau/giay, 1 worker. Lan thu thap nay dung
+`--workers 4 --delay 0.25` (toi da 4 yeu cau/giay tren tat ca worker).
+HTTP 429 se tam dung chung theo `Retry-After`; loi mang/5xx duoc thu lai.
+Co the them `--max-seconds 600` de gioi han thoi gian. Ctrl+C van xuat ket qua
+da lay; chay lai cung lenh de tiep tuc tu `data/raw/descriptions.sqlite3`
+(checkpoint cuc bo, khong commit). Tren may khong co checkpoint, crawler se
+kiem tra lai tu dau. `--refresh` kiem tra lai ca cac ket qua da hoan tat.
+
+`descriptions.csv` dung UTF-8 BOM, co dung hai cot `list_id,description`,
+giu nguyen noi dung va xuong dong cua `ad.body`. File chi chua mo ta lay
+thanh cong; khong thay mo ta thieu bang tieu de. `description_status.csv`
+bao phu toan bo ID dau vao, kem ma HTTP, so lan thu, URL va thoi diem UTC.
+Chi HTTP 404/410 duoc thong ke la tin da go/khong con truy cap;
+403/429, loi mang va tin chua kiem tra duoc thong ke rieng.
+
+Chay notebook 01 de xem thong ke va kiem tra cac file da luu; Run All khong
+tu goi mang. Notebook 04 can left-join theo `list_id`, bao cao do phu va
+chi dung `subject` lam phuong an du phong khi thieu mo ta. Mo ta duoc lay
+sau du lieu thong so xe, nen noi dung/trang thai tin co the da thay doi.
+
+Kiem tra logic crawler offline (khong can thu vien ngoai):
+
+```bash
+python -m unittest discover -s 01_crawler_and_ml/crawler -p "test_fetch_descriptions.py"
 ```
 
 ## 7. Quy chuan lam viec voi Git va phan nhanh
