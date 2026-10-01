@@ -1,10 +1,3 @@
-"""Collect public listing bodies with resumable, auditable per-ID results.
-
-Run from any directory. CSVs are data interchange files, not workbooks.
-Only successful detail responses populate descriptions.csv; subject is never used
-as a substitute. The SQLite checkpoint is local and excluded by .gitignore.
-"""
-
 import argparse
 import csv
 import json

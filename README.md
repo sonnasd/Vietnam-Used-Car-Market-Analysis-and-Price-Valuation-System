@@ -39,8 +39,7 @@ Vietnam-Used-Car-Market-Analysis-and-Price-Valuation-System/
 |-- 01_crawler_and_ml/                 Do Khanh Duy
 |   |-- crawler/
 |   |   |-- scraper.py                 crawler API Cho Tot
-|   |   |-- fetch_descriptions.py      cao mo ta chi tiet theo list_id, co checkpoint
-|   |   `-- test_fetch_descriptions.py unit test logic crawler
+|   |   `-- fetch_descriptions.py      cao mo ta chi tiet theo list_id, co checkpoint
 |   |-- 01_thu_thap_du_lieu.ipynb
 |   `-- 05_mo_hinh_dinh_gia.ipynb
 |-- 02_analytics_and_dashboard/        Quach Thien Nhan
@@ -122,66 +121,3 @@ Cai dat cac goi thu vien can thiet:
 pip install -r requirements.txt
 ```
 
-### Cao bo sung mo ta dai
-
-Tu thu muc goc, chay het cac `list_id` trong `cars.csv`:
-
-```bash
-python 01_crawler_and_ml/crawler/fetch_descriptions.py
-```
-
-Mac dinh bat dau 1 yeu cau/giay, 1 worker. Lan thu thap nay dung
-`--workers 4 --delay 0.25` (toi da 4 yeu cau/giay tren tat ca worker).
-HTTP 429 se tam dung chung theo `Retry-After`; loi mang/5xx duoc thu lai.
-Co the them `--max-seconds 600` de gioi han thoi gian. Ctrl+C van xuat ket qua
-da lay; chay lai cung lenh de tiep tuc tu `data/raw/descriptions.sqlite3`
-(checkpoint cuc bo, khong commit). Tren may khong co checkpoint, crawler se
-kiem tra lai tu dau. `--refresh` kiem tra lai ca cac ket qua da hoan tat.
-
-`descriptions.csv` dung UTF-8 BOM, co dung hai cot `list_id,description`,
-giu nguyen noi dung va xuong dong cua `ad.body`. File chi chua mo ta lay
-thanh cong; khong thay mo ta thieu bang tieu de. `description_status.csv`
-bao phu toan bo ID dau vao, kem ma HTTP, so lan thu, URL va thoi diem UTC.
-Chi HTTP 404/410 duoc thong ke la tin da go/khong con truy cap;
-403/429, loi mang va tin chua kiem tra duoc thong ke rieng.
-
-Chay notebook 01 de xem thong ke va kiem tra cac file da luu; Run All khong
-tu goi mang. Notebook 04 can left-join theo `list_id`, bao cao do phu va
-chi dung `subject` lam phuong an du phong khi thieu mo ta. Mo ta duoc lay
-sau du lieu thong so xe, nen noi dung/trang thai tin co the da thay doi.
-
-Kiem tra logic crawler offline (khong can thu vien ngoai):
-
-```bash
-python -m unittest discover -s 01_crawler_and_ml/crawler -p "test_fetch_descriptions.py"
-```
-
-## 7. Quy chuan lam viec voi Git va phan nhanh
-
-He thong phan nhanh gom 1 nhanh chinh va cac nhanh tinh nang doc lap:
-
-- main: Nhanh chinh luu tru ma nguon cua toan bo du an.
-- feature/crawler-and-ml: Nhanh lam viec cua Do Khanh Duy.
-- feature/data-cleaning-dashboard: Nhanh lam viec cua Quach Thien Nhan.
-- feature/nlp-and-deal: Nhanh lam viec cua Nguyen Huy Son.
-
-Cac buoc lam viec chuan:
-
-1. Chuyen sang nhanh ca nhan truoc khi code:
-```bash
-git checkout <ten-nhanh-ca-nhan>
-```
-
-2. Dong bo du lieu moi nhat tu nhanh main:
-```bash
-git pull origin main
-```
-
-3. Commit va push ma nguon len nhanh ca nhan:
-```bash
-git add .
-git commit -m "Mo ta ngan gon noi dung thay doi"
-git push origin <ten-nhanh-ca-nhan>
-```
-
-4. Tao Pull Request (PR) tren GitHub tu nhanh ca nhan vao nhanh main de cac thanh vien khac review truoc khi gop code.
