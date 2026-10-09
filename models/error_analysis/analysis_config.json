@@ -1,0 +1,57 @@
+{
+  "model": "XGBoost",
+  "model_params": {
+    "model__colsample_bytree": 0.9,
+    "model__learning_rate": 0.1,
+    "model__max_depth": 8,
+    "model__min_child_weight": 3,
+    "model__n_estimators": 600,
+    "model__reg_alpha": 0.1,
+    "model__reg_lambda": 1.0,
+    "model__subsample": 0.9
+  },
+  "test_rows": 2704,
+  "random_state": 42,
+  "residual_definition": "y_true - y_pred",
+  "permutation_repeats": 5,
+  "importance_metrics": [
+    "R2_drop",
+    "MAE_increase"
+  ],
+  "min_segment_test_size": 30,
+  "min_model_frequency": 10,
+  "feature_columns": [
+    "car_age",
+    "mileage_v2",
+    "carbrand_name",
+    "carmodel_name",
+    "gearbox",
+    "fuel",
+    "cartype",
+    "carcolor",
+    "carorigin",
+    "carseats",
+    "region_name",
+    "co_mo_ta",
+    "vb_chinh_chu",
+    "vb_bao_duong_hang",
+    "vb_khong_dam_dung",
+    "vb_khong_ngap_nuoc",
+    "vb_zin",
+    "vb_khong_tua_odo",
+    "vb_bao_test",
+    "vb_tra_gop",
+    "vb_bao_hanh"
+  ],
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "matplotlib": "3.11.2"
+  },
+  "input_sha256": {
+    "data\\processed\\cars_cleaned.csv": "b7172993d025818cb5bb0193506ee7b2d697c1d82a370edacf37502b47b786fa",
+    "data\\processed\\text_flags.csv": "f69892a95b5ab80d4820dc9620ede3f153426465fbdda59ade67c6ab5d4ab905"
+  }
+}
