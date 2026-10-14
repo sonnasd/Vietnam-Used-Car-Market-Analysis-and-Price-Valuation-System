@@ -1,0 +1,14 @@
+﻿Model,Parameter,Values,Combinations
+XGBoost,n_estimators,"[300, 400, 600]",8748
+XGBoost,max_depth,"[3, 4, 6, 8]",8748
+XGBoost,learning_rate,"[0.03, 0.05, 0.1]",8748
+XGBoost,min_child_weight,"[1, 3, 5]",8748
+XGBoost,subsample,"[0.8, 0.9, 1.0]",8748
+XGBoost,colsample_bytree,"[0.8, 0.9, 1.0]",8748
+XGBoost,reg_alpha,"[0.0, 0.1, 1.0]",8748
+XGBoost,reg_lambda,"[1.0, 5.0, 10.0]",8748
+Random Forest,n_estimators,"[200, 300, 500]",162
+Random Forest,max_depth,"[12, 20, null]",162
+Random Forest,min_samples_split,"[2, 5, 10]",162
+Random Forest,min_samples_leaf,"[1, 2, 4]",162
+Random Forest,max_features,"[0.7, 1.0]",162

@@ -1,0 +1,129 @@
+{
+  "model_name": "XGBoost",
+  "artifact_path": "models/car_pricing_model.pkl",
+  "artifact_type": "sklearn.pipeline.Pipeline",
+  "pipeline_steps": [
+    "preprocessor",
+    "model"
+  ],
+  "compression_level": 3,
+  "max_file_size_bytes": 100000000,
+  "target_column": "price_million",
+  "prediction_unit": "million_VND",
+  "feature_columns": [
+    "car_age",
+    "mileage_v2",
+    "carbrand_name",
+    "carmodel_name",
+    "gearbox",
+    "fuel",
+    "cartype",
+    "carcolor",
+    "carorigin",
+    "carseats",
+    "region_name",
+    "co_mo_ta",
+    "vb_chinh_chu",
+    "vb_bao_duong_hang",
+    "vb_khong_dam_dung",
+    "vb_khong_ngap_nuoc",
+    "vb_zin",
+    "vb_khong_tua_odo",
+    "vb_bao_test",
+    "vb_tra_gop",
+    "vb_bao_hanh"
+  ],
+  "feature_groups": {
+    "Số": [
+      "car_age",
+      "mileage_v2"
+    ],
+    "Danh mục": [
+      "carbrand_name",
+      "carmodel_name",
+      "gearbox",
+      "fuel",
+      "cartype",
+      "carcolor",
+      "carorigin",
+      "carseats",
+      "region_name"
+    ],
+    "Cờ văn bản": [
+      "co_mo_ta",
+      "vb_chinh_chu",
+      "vb_bao_duong_hang",
+      "vb_khong_dam_dung",
+      "vb_khong_ngap_nuoc",
+      "vb_zin",
+      "vb_khong_tua_odo",
+      "vb_bao_test",
+      "vb_tra_gop",
+      "vb_bao_hanh"
+    ]
+  },
+  "feature_dtypes": {
+    "car_age": "int64",
+    "mileage_v2": "int64",
+    "carbrand_name": "object",
+    "carmodel_name": "object",
+    "gearbox": "object",
+    "fuel": "object",
+    "cartype": "object",
+    "carcolor": "object",
+    "carorigin": "object",
+    "carseats": "object",
+    "region_name": "object",
+    "co_mo_ta": "int8",
+    "vb_chinh_chu": "int8",
+    "vb_bao_duong_hang": "int8",
+    "vb_khong_dam_dung": "int8",
+    "vb_khong_ngap_nuoc": "int8",
+    "vb_zin": "int8",
+    "vb_khong_tua_odo": "int8",
+    "vb_bao_test": "int8",
+    "vb_tra_gop": "int8",
+    "vb_bao_hanh": "int8"
+  },
+  "selected_params": {
+    "model__colsample_bytree": 0.9,
+    "model__learning_rate": 0.1,
+    "model__max_depth": 8,
+    "model__min_child_weight": 3,
+    "model__n_estimators": 600,
+    "model__reg_alpha": 0.1,
+    "model__reg_lambda": 1.0,
+    "model__subsample": 0.9
+  },
+  "training_scope": "train",
+  "train_rows": 10816,
+  "test_rows": 2704,
+  "random_state": 42,
+  "test_size": 0.2,
+  "min_model_frequency": 10,
+  "R2_cv": 0.8925420614219554,
+  "test_metrics": {
+    "R2": 0.8892584562262882,
+    "MAE": 46.97275369892199,
+    "RMSE": 80.42264205961423,
+    "Meets_R2_target": true
+  },
+  "python_version": "3.12.13",
+  "library_versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.6.0"
+  },
+  "input_sha256": {
+    "data\\processed\\cars_cleaned.csv": "b7172993d025818cb5bb0193506ee7b2d697c1d82a370edacf37502b47b786fa",
+    "data\\processed\\text_flags.csv": "f69892a95b5ab80d4820dc9620ede3f153426465fbdda59ade67c6ab5d4ab905"
+  },
+  "file_size_bytes": 927867,
+  "file_size_mb": 0.927867,
+  "sha256": "f71123cdb3b3d6c95a9eb227431e3bc0ddd8601cd1400859266a93fdb1e42bc4",
+  "verified_rows": 2704,
+  "n_features": 21,
+  "max_prediction_difference": 0.0
+}
