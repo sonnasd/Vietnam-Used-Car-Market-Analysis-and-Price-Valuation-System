@@ -1,0 +1,61 @@
+{
+  "machine": "Nguyễn Huy Sơn",
+  "date": "2026-10-21",
+  "branch": "feature/nlp-and-deal",
+  "base_commit": "149fc2c",
+  "remote_main_not_merged": "3e6d625; this run verifies the current branch and local changes, not newer main commits",
+  "run_scope": "Full notebook pipeline in isolated workspace copy; existing raw data, no network crawling",
+  "notebooks": [
+    {
+      "notebook": "01_crawler_and_ml/01_thu_thap_du_lieu.ipynb",
+      "seconds": 4.3,
+      "status": "pass"
+    },
+    {
+      "notebook": "02_analytics_and_dashboard/02_lam_sach_du_lieu.ipynb",
+      "seconds": 3.2,
+      "status": "pass"
+    },
+    {
+      "notebook": "02_analytics_and_dashboard/03_phan_tich_truc_quan.ipynb",
+      "seconds": 6.3,
+      "status": "pass"
+    },
+    {
+      "notebook": "02_analytics_and_dashboard/choropleth_map/ban_do_nhiet.ipynb",
+      "seconds": 5.7,
+      "status": "pass"
+    },
+    {
+      "notebook": "03_nlp_and_deal/04_phan_tich_van_ban.ipynb",
+      "seconds": 101.6,
+      "status": "pass"
+    },
+    {
+      "notebook": "01_crawler_and_ml/05_mo_hinh_dinh_gia.ipynb",
+      "seconds": 1054.2,
+      "status": "pass"
+    },
+    {
+      "notebook": "03_nlp_and_deal/06_phat_hien_deal.ipynb",
+      "seconds": 8.7,
+      "status": "pass"
+    },
+    {
+      "notebook": "03_nlp_and_deal/00_tong_quan.ipynb",
+      "seconds": 6.8,
+      "status": "pass"
+    }
+  ],
+  "test_metrics": {
+    "R2": 0.8892584562262882,
+    "MAE": 46.97275369892199,
+    "RMSE": 80.42264205961423,
+    "Meets_R2_target": true
+  },
+  "original_data_models_unchanged": true,
+  "regenerated_datasets_match": true,
+  "regenerated_predictions_match": true,
+  "max_prediction_difference": 0.0,
+  "acceptance": "T21 accepted on Son machine per user request; not a second-machine verification"
+}
