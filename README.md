@@ -32,7 +32,7 @@ Bao cao duoc viet truc tiep trong cac Jupyter notebook: moi notebook gom code Py
   - Nhiem vu: Lam sach, chuan hoa du lieu va loc ngoai lai IQR (notebook 02); EDA va ban do nhiet 63 tinh (notebook 03).
 - Nguyen Huy Son (NLP, Deal Detection & Project Coordinator):
   - Phu trach thu muc: 03_nlp_and_deal/ va docs/ (nhanh feature/nlp-and-deal)
-  - Nhiem vu: Notebook tong quan va ket luan (notebook 00); phan tich van ban, co nhi phan va Word Cloud (notebook 04); phat hien Deal va kich ban dinh gia dau-cuoi (notebook 06); quan ly tien do, README va slide bao ve.
+  - Nhiem vu: Notebook tong quan va ket luan (notebook 00); phan tich van ban, co nhi phan va Word Cloud (notebook 04); phat hien Deal va kich ban dinh gia dau-cuoi (notebook 06); quan ly tien do va README.
 
 ## 3. Cau truc thu muc
 
@@ -133,7 +133,25 @@ source .venv/bin/activate
 
 Khi mo notebook trong VS Code, chon kernel la Python 3.12 da cai du thu vien o tren.
 
-## 7. Quy chuan lam viec voi Git va phan nhanh
+## 7. Dashboard trong notebook 06
+
+Mo `03_nlp_and_deal/06_phat_hien_deal.ipynb` bang Jupyter hoac VS Code, chon kernel da cai requirements, roi Run All. Dashboard nam o muc 7, khong phai website rieng.
+
+- Chon hang, sau do chon dong xe. Doi hang/dong/nam se xoa thong so va ket qua cu, giu tinh/thanh.
+- Nhap nam va ODO; chon hop so, tinh/thanh. Gia rao theo trieu dong co the de trong.
+- Goi y chi co khi nhom cung hang–dong–nam co it nhat 10 tin va gia tri chiem it nhat 80%. Bam **Ap dung goi y** moi dien; van sua duoc.
+- Cam ket co the lay tu tieu de hoac mo ta. Khong tu suy ra tinh trang xe tu du lieu.
+- Bam **Dinh gia** de xem gia, khoang ±MAE va nhan Deal neu co gia rao. Khoang nay khong phai khoang tin cay.
+
+Logic form nam trong `03_nlp_and_deal/dinh_gia_form.py`. Kiem tra tu goc repo:
+
+```bash
+python 03_nlp_and_deal/test_dinh_gia.py
+```
+
+T21 da nghiem thu tren may Son ngay 21/10/2026 theo yeu cau: chay du 8 notebook trong ban sao tam tu du lieu tho co san, gom lam sach, NLP va huan luyen; du lieu va du doan tai tao khop ban giao. Chi tiet: `docs/T21_result.json`. Chua xac nhan tren may khac; khong cao lai. T22 van cho ra soat ban giao cuoi cung. Khong can huan luyen lai de dung form.
+
+## 8. Quy chuan lam viec voi Git va phan nhanh
 
 He thong phan nhanh gom 1 nhanh chinh va cac nhanh lam viec cua tung nguoi:
 
