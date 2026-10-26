@@ -4,18 +4,8 @@ from html import escape
 import ipywidgets as widgets
 import pandas as pd
 
+from phan_tich_mo_ta import TEN_CO, tom_tat_mo_ta
 
-TEN_CO = {
-    "vb_chinh_chu": "Chính chủ / một chủ",
-    "vb_bao_duong_hang": "Bảo dưỡng hãng",
-    "vb_khong_dam_dung": "Cam kết không đâm đụng",
-    "vb_khong_ngap_nuoc": "Cam kết không ngập nước",
-    "vb_zin": "Zin / nguyên bản",
-    "vb_khong_tua_odo": "Cam kết không tua ODO",
-    "vb_bao_test": "Cho kiểm tra / bao test",
-    "vb_tra_gop": "Hỗ trợ trả góp",
-    "vb_bao_hanh": "Có nhắc bảo hành",
-}
 TRUONG_GOI_Y = {
     "gearbox": "Hộp số", "fuel": "Nhiên liệu",
     "cartype": "Kiểu xe", "carseats": "Số chỗ",
@@ -199,8 +189,15 @@ class FormDinhGia:
                     **{o.description.rstrip(":"): o.value for o in self.truong.values()},
                     "Có mô tả": self.co_mo_ta.value,
                     **{TEN_CO[c]: o.value for c, o in self.co.items()}}
+        mo_ta = tom_tat_mo_ta(self.thong_tin_them())
+        nguon = "Có mô tả chi tiết" if mo_ta["co_mo_ta"] else "Chỉ có tiêu đề hoặc người dùng không nhập mô tả"
         self.ket_qua.value = "<h3>Kết quả</h3>" + "".join(
             f"<p><b>{escape(str(k))}:</b> {escape(str(v))}</p>" for k, v in result.items()
+        ) + "<h3>Thông tin người bán công bố</h3>" + (
+            f"<p><b>Nguồn văn bản:</b> {escape(nguon)}</p>"
+            f"<p><b>Số cam kết tìm thấy:</b> {mo_ta['so_cam_ket']}</p>"
+            f"<p><b>Nội dung:</b> {escape(mo_ta['noi_dung'])}</p>"
+            "<p>Thông tin này do người bán công bố, chưa phải tình trạng xe đã được kiểm chứng.</p>"
         ) + "<details><summary>Thông số đã dùng</summary>" + "".join(
             f"<p>{escape(str(k))}: {escape(str(v))}</p>" for k, v in thong_so.items()
         ) + "</details><p>Giá rao tham khảo; cần kiểm tra xe thực tế. Khoảng ±MAE không phải khoảng tin cậy.</p>"

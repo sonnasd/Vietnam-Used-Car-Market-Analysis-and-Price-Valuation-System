@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from dinh_gia_form import FormDinhGia, chuan_bi_xe, goi_y_thong_so
+from phan_tich_mo_ta import tom_tat_mo_ta
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,8 +22,12 @@ files = [p for folder in ("data", "models") for p in (ROOT / folder).rglob("*") 
 hashes = {p: hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
 namespace = {}
 notebook = json.loads(Path("06_phat_hien_deal.ipynb").read_text(encoding="utf-8"))
-for i in (1, 5, 7, 23):
-    exec(compile("".join(notebook["cells"][i]["source"]), f"notebook06:{i}", "exec"), namespace)
+for fragment in ("MODEL_PATH =", "sai_so = pd.read_csv", "def tinh_chenh_lech", "def dinh_gia_xe"):
+    i, cell = next(
+        (i, cell) for i, cell in enumerate(notebook["cells"])
+        if fragment in "".join(cell["source"])
+    )
+    exec(compile("".join(cell["source"]), f"notebook06:{i}", "exec"), namespace)
 predict = namespace["dinh_gia_xe"]
 for value in (-15, 15):
     assert namespace["gan_nhan"](value) == "Giá hợp lý"
@@ -65,8 +70,12 @@ form = FormDinhGia(data, predict)
 form.hang.value = "Toyota"
 form.dong.value = "Vios"
 form.truong["region_name"].value = "Hà Nội"
+form.truong["gearbox"].value = "Số tự động"
 form.odo.value = "60000"
 form.co["vb_chinh_chu"].value = True
+form.hien_ket_qua()
+assert "Chính chủ / một chủ" in form.ket_qua.value
+assert "chưa phải tình trạng xe đã được kiểm chứng" in form.ket_qua.value
 form.ket_qua.value = "old result"
 form.hang.value = "BMW"
 assert form.dong.value is None and "Vios" not in [v for _, v in form.dong.options]
@@ -96,6 +105,8 @@ fixture["gearbox"] = ["Số tự động"] * 8 + ["Số sàn"] * 2
 assert goi_y_thong_so(fixture, "Toyota", "Vios", 2020)[1]["gearbox"] == ("Số tự động", 0.8)
 fixture.loc[0, "gearbox"] = "Số sàn"
 assert "gearbox" not in goi_y_thong_so(fixture, "Toyota", "Vios", 2020)[1]
+assert tom_tat_mo_ta({"co_mo_ta": 0})["noi_dung"] == "Không tìm thấy cam kết"
+assert tom_tat_mo_ta({"co_mo_ta": 0, "vb_chinh_chu": 1})["so_cam_ket"] == 1
 
 test = pd.read_csv(ROOT / "models/error_analysis/test_errors.csv")
 np.testing.assert_allclose(model.predict(test[features]), test.y_pred, rtol=1e-6, atol=1e-5)
