@@ -27,7 +27,7 @@ def missing_value_report(X_train):
         for column in columns:
             values = X_train[column]
             if column in NUMERIC_FEATURES:
-                strategy, fill_value = "Trung vị của train", values.median()
+                strategy, fill_value = "Trung vị (Pipeline học lại từ train)", values.median()
             elif column in CATEGORICAL_FEATURES:
                 strategy, fill_value = "Nhãn riêng cho giá trị thiếu", MISSING_LABEL
             else:
@@ -51,7 +51,7 @@ def categorical_encoding_report(X_train, min_model_frequency):
         grouped = column == "carmodel_name"
         rows.append({
             "Đặc trưng": column,
-            "Số nhãn trên train": len(counts),
+            "Số nhãn": len(counts),
             "Nhãn phổ biến nhất": counts.index[0],
             "Tỷ lệ nhãn phổ biến nhất (%)": counts.iloc[0] / counts.sum() * 100,
             f"Số nhãn dưới {min_model_frequency} tin": int(rare.sum()),

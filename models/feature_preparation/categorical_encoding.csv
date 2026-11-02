@@ -1,10 +1,10 @@
-﻿Đặc trưng,Số nhãn trên train,Nhãn phổ biến nhất,Tỷ lệ nhãn phổ biến nhất (%),Số nhãn dưới 10 tin,Cách mã hóa
-carbrand_name,55,Toyota,22.161612426035504,28,One-hot
-carmodel_name,358,Innova,4.770710059171598,208,"One-hot, gom nhãn dưới 10 tin thành một cột"
-gearbox,3,Số tự động,78.83690828402366,0,One-hot
-fuel,4,Xăng,76.92307692307693,0,One-hot
-cartype,10,Không rõ,37.962278106508876,0,One-hot
-carcolor,13,Trắng,31.91568047337278,0,One-hot
-carorigin,11,Không rõ,47.29105029585799,0,One-hot
-carseats,11,5 chỗ,44.84097633136095,2,One-hot
-region_name,62,Hồ Chí Minh,45.451183431952664,18,One-hot
+﻿Đặc trưng,Số nhãn,Nhãn phổ biến nhất,Tỷ lệ nhãn phổ biến nhất (%),Số nhãn dưới 10 tin,Cách mã hóa
+carbrand_name,56,Toyota,21.930473372781066,29,One-hot
+carmodel_name,372,Innova,4.600591715976331,211,"One-hot, gom nhãn dưới 10 tin thành một cột"
+gearbox,3,Số tự động,78.75,0,One-hot
+fuel,4,Xăng,76.86390532544378,0,One-hot
+cartype,10,Không rõ,37.69230769230769,0,One-hot
+carcolor,13,Trắng,32.02662721893491,0,One-hot
+carorigin,11,Không rõ,47.196745562130175,0,One-hot
+carseats,11,5 chỗ,44.88905325443787,1,One-hot
+region_name,63,Hồ Chí Minh,45.48076923076923,14,One-hot
