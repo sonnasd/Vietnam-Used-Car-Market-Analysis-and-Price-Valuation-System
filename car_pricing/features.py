@@ -1,5 +1,9 @@
+from numbers import Integral
+
 import numpy as np
 import pandas as pd
+
+from .validation import normalize_listing_ids, numeric_values, validate_columns
 
 NUMERIC_FEATURES = ("car_age", "mileage_v2")
 CATEGORICAL_FEATURES = (
@@ -27,59 +31,77 @@ TEXT_FEATURES = (
 )
 FEATURE_COLUMNS = (*NUMERIC_FEATURES, *CATEGORICAL_FEATURES, *TEXT_FEATURES)
 TARGET_COLUMN = "price_million"
+MISSING_LABEL = "Không rõ"
+FIRST_CAR_YEAR = 1886
 
 
-def _validate_columns(frame, columns, name):
-    missing = set(columns).difference(frame.columns)
-    if missing:
-        raise KeyError(f"{name} thiếu cột: {', '.join(sorted(missing))}.")
-    if frame.columns.duplicated().any():
-        raise ValueError(f"{name} có tên cột trùng nhau.")
-
-
-def _validate_listing_ids(frame, name):
-    if frame["list_id"].isna().any():
-        raise ValueError(f"{name} có list_id bị thiếu.")
-    if frame["list_id"].duplicated().any():
-        raise ValueError(f"{name} có list_id trùng nhau.")
-
-
-def build_feature_dataset(cars, text_flags):
-    source_columns = ("list_id", TARGET_COLUMN, *NUMERIC_FEATURES, *CATEGORICAL_FEATURES)
-    _validate_columns(cars, source_columns, "Dữ liệu xe")
-    _validate_columns(text_flags, ("list_id", *TEXT_FEATURES), "Cờ văn bản")
-    _validate_listing_ids(cars, "Dữ liệu xe")
-    _validate_listing_ids(text_flags, "Cờ văn bản")
-
-    missing_flags = ~cars["list_id"].isin(text_flags["list_id"])
-    extra_flags = ~text_flags["list_id"].isin(cars["list_id"])
-    if missing_flags.any() or extra_flags.any():
-        raise ValueError(
-            f"list_id giữa hai file không khớp: {missing_flags.sum()} tin thiếu cờ, "
-            f"{extra_flags.sum()} tin dư cờ."
-        )
-
-    dataset = cars.loc[:, list(source_columns)].copy()
-    target = pd.to_numeric(dataset[TARGET_COLUMN], errors="raise")
-    if target.isna().any() or not np.isfinite(target).all() or target.le(0).any():
-        raise ValueError("Giá phải hữu hạn, không thiếu và lớn hơn 0.")
-    dataset[TARGET_COLUMN] = target
-
+def prepare_model_features(frame):
+    validate_columns(frame, FEATURE_COLUMNS, "Đặc trưng đầu vào")
+    features = frame.loc[:, list(FEATURE_COLUMNS)].copy()
     for column in NUMERIC_FEATURES:
-        values = pd.to_numeric(dataset[column], errors="raise")
-        if not np.isfinite(values.dropna()).all():
-            raise ValueError(f"Đặc trưng {column} có giá trị không hữu hạn.")
-        dataset[column] = values
-
+        features[column] = numeric_values(
+            features[column], column, allow_missing=True, minimum=0,
+            integer=column == "car_age",
+        )
     for column in CATEGORICAL_FEATURES:
-        values = dataset[column].astype("string").str.strip().replace("", pd.NA)
-        dataset[column] = values.astype(object).where(values.notna(), np.nan)
-
-    aligned_flags = text_flags.set_index("list_id").reindex(dataset["list_id"])
+        labels = features[column].astype("string").str.normalize("NFC").str.strip()
+        labels = labels.mask(labels.eq(""))
+        features[column] = labels.astype(object).where(labels.notna(), np.nan)
     for column in TEXT_FEATURES:
-        values = pd.to_numeric(aligned_flags[column], errors="raise")
-        if not values.isin((0, 1)).all():
-            raise ValueError(f"Cờ {column} phải có giá trị 0 hoặc 1 và không được thiếu.")
-        dataset[column] = values.to_numpy(dtype=np.int8)
+        flags = numeric_values(features[column], column)
+        if not flags.isin((0, 1)).all():
+            raise ValueError(f"Cờ {column} chỉ nhận 0 hoặc 1.")
+        features[column] = flags.astype(np.int8)
+    return features
 
-    return dataset
+
+def derive_car_age(cars, reference_year):
+    if isinstance(reference_year, bool) or not isinstance(reference_year, Integral):
+        raise ValueError("Năm tham chiếu phải là số nguyên.")
+    years = numeric_values(cars["mfdate"], "mfdate", allow_missing=True, integer=True)
+    if not years.dropna().between(FIRST_CAR_YEAR, reference_year).all():
+        raise ValueError(f"Năm sản xuất nằm ngoài khoảng từ {FIRST_CAR_YEAR} đến năm tham chiếu.")
+    ages = reference_year - years
+    if "car_age" in cars:
+        saved = numeric_values(cars["car_age"], "car_age", allow_missing=True, minimum=0)
+        comparable = saved.notna() & ages.notna()
+        if saved[comparable].ne(ages[comparable]).any():
+            raise ValueError("car_age không khớp mfdate và năm tham chiếu.")
+    return ages
+
+
+def build_feature_dataset(cars, text_flags, reference_year=None):
+    age_source = "car_age" if reference_year is None else "mfdate"
+    validate_columns(
+        cars, ("list_id", TARGET_COLUMN, age_source, "mileage_v2", *CATEGORICAL_FEATURES), "Dữ liệu xe",
+    )
+    validate_columns(text_flags, ("list_id", *TEXT_FEATURES), "Text flags")
+
+    listing_ids = normalize_listing_ids(cars["list_id"], "Dữ liệu xe")
+    features = cars.loc[:, ["mileage_v2", *CATEGORICAL_FEATURES]].copy()
+    features["car_age"] = cars["car_age"] if reference_year is None else derive_car_age(cars, reference_year)
+    features = features.join(_align_text_flags(text_flags, listing_ids))
+
+    dataset = pd.DataFrame({"list_id": listing_ids, TARGET_COLUMN: _validated_target(cars)})
+    return dataset.join(prepare_model_features(features), validate="one_to_one")
+
+
+def _align_text_flags(text_flags, listing_ids):
+    flag_ids = normalize_listing_ids(text_flags["list_id"], "Text flags")
+    missing = (~listing_ids.isin(flag_ids)).sum()
+    extra = (~flag_ids.isin(listing_ids)).sum()
+    if missing or extra:
+        raise ValueError(f"list_id giữa hai file không khớp: {missing} tin thiếu cờ, {extra} tin dư cờ.")
+    flags = text_flags.loc[:, list(TEXT_FEATURES)].set_axis(flag_ids.to_numpy())
+    return flags.reindex(listing_ids.to_numpy()).set_axis(listing_ids.index)
+
+
+def _validated_target(cars):
+    target = numeric_values(cars[TARGET_COLUMN], TARGET_COLUMN)
+    if target.le(0).any():
+        raise ValueError("Giá phải lớn hơn 0.")
+    if "price" in cars:
+        price = numeric_values(cars["price"], "price") / 1_000_000
+        if not np.isclose(target, price, rtol=1e-9, atol=1e-6).all():
+            raise ValueError("price_million không khớp price / 1_000_000.")
+    return target
