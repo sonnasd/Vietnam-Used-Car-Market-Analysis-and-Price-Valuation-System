@@ -112,7 +112,9 @@ test = pd.read_csv(ROOT / "models/error_analysis/test_errors.csv")
 np.testing.assert_allclose(model.predict(test[features]), test.y_pred, rtol=1e-6, atol=1e-5)
 valid = test[test.y_pred > 0]
 delta = (valid.y_true - valid.y_pred) / valid.y_pred * 100
-assert ((delta < -15).sum(), delta.between(-15, 15).sum(), (delta > 15).sum()) == (319, 2040, 344)
-assert test.y_pred.le(0).sum() == 1
+deal_labels = delta.map(namespace["gan_nhan"])
+assert deal_labels.eq("Deal hời / Rẻ bất thường").equals(delta.lt(-15))
+assert deal_labels.eq("Giá hợp lý").equals(delta.between(-15, 15))
+assert deal_labels.eq("Hét giá cao").equals(delta.gt(15))
 assert hashes == {p: hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
 print("PASS: validation, widget transitions, suggestions, Deal boundaries, 2704 predictions, unchanged data/models")

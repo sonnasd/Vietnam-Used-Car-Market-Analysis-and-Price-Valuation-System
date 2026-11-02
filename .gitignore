@@ -21,6 +21,7 @@ wheels/
 
 .env
 .venv
+.tmp_runtime/
 env/
 venv/
 ENV/

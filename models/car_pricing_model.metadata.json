@@ -49,7 +49,7 @@
       "carseats",
       "region_name"
     ],
-    "Cờ văn bản": [
+    "Text flags": [
       "co_mo_ta",
       "vb_chinh_chu",
       "vb_bao_duong_hang",
@@ -63,8 +63,8 @@
     ]
   },
   "feature_dtypes": {
-    "car_age": "int64",
-    "mileage_v2": "int64",
+    "car_age": "float64",
+    "mileage_v2": "float64",
     "carbrand_name": "object",
     "carmodel_name": "object",
     "gearbox": "object",
@@ -85,6 +85,9 @@
     "vb_tra_gop": "int8",
     "vb_bao_hanh": "int8"
   },
+  "data_reference_year": 2026,
+  "encoded_feature_count": 332,
+  "feature_selection_method": "domain_rules_and_drop_column_cv",
   "selected_params": {
     "model__colsample_bytree": 0.9,
     "model__learning_rate": 0.1,
@@ -101,17 +104,17 @@
   "random_state": 42,
   "test_size": 0.2,
   "min_model_frequency": 10,
-  "R2_cv": 0.8925420614219554,
+  "R2_cv": 0.8921910985570678,
   "test_metrics": {
-    "R2": 0.8892584562262882,
-    "MAE": 46.97275369892199,
-    "RMSE": 80.42264205961423,
+    "R2": 0.8889117029517358,
+    "MAE": 46.852906942050055,
+    "RMSE": 80.5484531052481,
     "Meets_R2_target": true
   },
   "python_version": "3.12.13",
   "library_versions": {
-    "numpy": "2.5.3",
-    "pandas": "3.0.6",
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
     "scikit-learn": "1.9.1",
     "xgboost": "3.4.1",
     "joblib": "1.6.0"
@@ -120,9 +123,9 @@
     "data\\processed\\cars_cleaned.csv": "b7172993d025818cb5bb0193506ee7b2d697c1d82a370edacf37502b47b786fa",
     "data\\processed\\text_flags.csv": "f69892a95b5ab80d4820dc9620ede3f153426465fbdda59ade67c6ab5d4ab905"
   },
-  "file_size_bytes": 927867,
-  "file_size_mb": 0.927867,
-  "sha256": "f71123cdb3b3d6c95a9eb227431e3bc0ddd8601cd1400859266a93fdb1e42bc4",
+  "file_size_bytes": 920954,
+  "file_size_mb": 0.920954,
+  "sha256": "9d4a479a10295a07e292965c3705dd6ca7ac90803f2ec2f6dd0696b700dc07b7",
   "verified_rows": 2704,
   "n_features": 21,
   "max_prediction_difference": 0.0

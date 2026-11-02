@@ -31,6 +31,7 @@
     "vb_tra_gop",
     "vb_bao_hanh"
   ],
+  "data_reference_year": 2026,
   "min_model_frequency": 10,
   "model_n_jobs": 4,
   "search_n_jobs": 1,
@@ -86,8 +87,8 @@
     }
   },
   "versions": {
-    "numpy": "2.5.3",
-    "pandas": "3.0.6",
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
     "scikit-learn": "1.9.1",
     "xgboost": "3.4.1"
   },
