@@ -1,0 +1,3 @@
+﻿Tập,Số dòng,Số cột sau xử lý,Định dạng
+Train,10816,332,csr_matrix
+Test,2704,332,csr_matrix

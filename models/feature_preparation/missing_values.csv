@@ -1,0 +1,22 @@
+﻿Nhóm,Đặc trưng,Số thiếu,Tỷ lệ thiếu (%),Cách xử lý,Giá trị điền
+Số,car_age,0,0.0,Trung vị của train,6.0
+Số,mileage_v2,0,0.0,Trung vị của train,65000.0
+Danh mục,carbrand_name,0,0.0,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,carmodel_name,0,0.0,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,gearbox,0,0.0,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,fuel,0,0.0,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,cartype,4106,37.962278106508876,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,carcolor,418,3.8646449704142016,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,carorigin,5115,47.29105029585799,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,carseats,2802,25.906065088757398,Nhãn riêng cho giá trị thiếu,Không rõ
+Danh mục,region_name,0,0.0,Nhãn riêng cho giá trị thiếu,Không rõ
+Text flags,co_mo_ta,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_chinh_chu,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_bao_duong_hang,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_khong_dam_dung,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_khong_ngap_nuoc,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_zin,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_khong_tua_odo,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_bao_test,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_tra_gop,0,0.0,Không cần: cờ luôn là 0/1,-
+Text flags,vb_bao_hanh,0,0.0,Không cần: cờ luôn là 0/1,-

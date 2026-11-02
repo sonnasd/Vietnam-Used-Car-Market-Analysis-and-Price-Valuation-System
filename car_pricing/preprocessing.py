@@ -6,10 +6,10 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from car_pricing.features import CATEGORICAL_FEATURES, NUMERIC_FEATURES, TEXT_FEATURES
+from car_pricing.features import CATEGORICAL_FEATURES, MISSING_LABEL, NUMERIC_FEATURES, TEXT_FEATURES
 
 
-def build_preprocessor(min_model_frequency=10, dense_output=False):
+def build_preprocessor(min_model_frequency=10, dense_output=False, extra_numeric=()):
     if (
         isinstance(min_model_frequency, bool)
         or not isinstance(min_model_frequency, Integral)
@@ -25,13 +25,13 @@ def build_preprocessor(min_model_frequency=10, dense_output=False):
     )
     categorical_pipeline = Pipeline(
         [
-            ("imputer", SimpleImputer(strategy="constant", fill_value="Không rõ", keep_empty_features=True)),
+            ("imputer", SimpleImputer(strategy="constant", fill_value=MISSING_LABEL, keep_empty_features=True)),
             ("encoder", OneHotEncoder(handle_unknown="ignore", sparse_output=not dense_output)),
         ]
     )
     model_pipeline = Pipeline(
         [
-            ("imputer", SimpleImputer(strategy="constant", fill_value="Không rõ", keep_empty_features=True)),
+            ("imputer", SimpleImputer(strategy="constant", fill_value=MISSING_LABEL, keep_empty_features=True)),
             (
                 "encoder",
                 OneHotEncoder(
@@ -45,7 +45,7 @@ def build_preprocessor(min_model_frequency=10, dense_output=False):
     other_categories = [column for column in CATEGORICAL_FEATURES if column != "carmodel_name"]
     return ColumnTransformer(
         [
-            ("numeric", numeric_pipeline, list(NUMERIC_FEATURES)),
+            ("numeric", numeric_pipeline, [*NUMERIC_FEATURES, *extra_numeric]),
             ("categorical", categorical_pipeline, other_categories),
             ("car_model", model_pipeline, ["carmodel_name"]),
             ("text", "passthrough", list(TEXT_FEATURES)),
@@ -55,7 +55,7 @@ def build_preprocessor(min_model_frequency=10, dense_output=False):
     )
 
 
-def build_model_pipeline(model, min_model_frequency=10, dense_output=False):
+def build_model_pipeline(model, min_model_frequency=10, dense_output=False, extra_numeric=()):
     return Pipeline(
         [
             (
@@ -63,6 +63,7 @@ def build_model_pipeline(model, min_model_frequency=10, dense_output=False):
                 build_preprocessor(
                     min_model_frequency=min_model_frequency,
                     dense_output=dense_output,
+                    extra_numeric=extra_numeric,
                 ),
             ),
             ("model", clone(model)),

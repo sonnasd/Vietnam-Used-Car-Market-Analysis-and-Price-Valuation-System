@@ -1,0 +1,4 @@
+﻿Biến,Nhỏ nhất,Trung vị,Lớn nhất,Độ lệch (skew),Biến đổi
+car_age,0.0,6.0,46.0,1.3091588322514174,StandardScaler
+mileage_v2,0.0,65000.0,204601.0,0.5753860990586789,StandardScaler
+price_million,20.0,425.0,1180.0,0.6330604512703154,Giữ nguyên đơn vị triệu VNĐ
