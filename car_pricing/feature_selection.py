@@ -4,7 +4,7 @@ from sklearn.base import clone
 from sklearn.feature_selection import mutual_info_regression
 from sklearn.metrics import r2_score
 
-from .features import CATEGORICAL_FEATURES, FEATURE_COLUMNS, MISSING_LABEL, NUMERIC_FEATURES
+from .features import CANDIDATE_CATEGORICAL_FEATURES, CANDIDATE_FEATURES, MISSING_LABEL, NUMERIC_FEATURES
 
 
 def cv_r2_scores(pipeline, X, y, folds):
@@ -15,21 +15,22 @@ def cv_r2_scores(pipeline, X, y, folds):
     return np.array(scores)
 
 
-def mutual_information_report(X_train, y_train, random_state=42):
-    encoded = X_train.loc[:, list(FEATURE_COLUMNS)].copy()
-    for column in NUMERIC_FEATURES:
+def mutual_information_report(X_train, y_train, random_state=42, columns=CANDIDATE_FEATURES):
+    columns = list(columns)
+    encoded = X_train.loc[:, columns].copy()
+    for column in (c for c in columns if c in NUMERIC_FEATURES):
         encoded[column] = encoded[column].fillna(encoded[column].median())
-    for column in CATEGORICAL_FEATURES:
+    for column in (c for c in columns if c in CANDIDATE_CATEGORICAL_FEATURES):
         encoded[column] = encoded[column].fillna(MISSING_LABEL).astype("category").cat.codes
     scores = mutual_info_regression(
         encoded, np.log(y_train),
-        discrete_features=[column not in NUMERIC_FEATURES for column in FEATURE_COLUMNS],
+        discrete_features=[column not in NUMERIC_FEATURES for column in columns],
         random_state=random_state,
     )
     return pd.DataFrame({
-        "Đặc trưng": FEATURE_COLUMNS,
+        "Đặc trưng": columns,
         "Mutual information": scores,
-        "Số giá trị": [X_train[column].nunique() for column in FEATURE_COLUMNS],
+        "Số giá trị": [X_train[column].nunique() for column in columns],
     }).sort_values("Mutual information", ascending=False, ignore_index=True)
 
 
@@ -38,7 +39,7 @@ def neutralize(features, columns):
     for column in columns:
         if column in NUMERIC_FEATURES:
             neutral[column] = np.nan
-        elif column in CATEGORICAL_FEATURES:
+        elif column in CANDIDATE_CATEGORICAL_FEATURES:
             neutral[column] = MISSING_LABEL
         else:
             neutral[column] = np.int8(0)

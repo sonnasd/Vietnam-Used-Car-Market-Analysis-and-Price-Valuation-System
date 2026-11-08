@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from .features import FEATURE_COLUMNS, TARGET_COLUMN, prepare_model_features
+from .features import FEATURE_COLUMNS, TARGET_COLUMN, checked_feature_columns, prepare_model_features
 from .validation import normalize_listing_ids, numeric_values, validate_columns
 
 
@@ -33,11 +33,12 @@ class PricingSplit:
         ])
 
 
-def split_pricing_data(dataset, test_size=0.2, random_state=42):
-    validate_columns(dataset, ("list_id", TARGET_COLUMN, *FEATURE_COLUMNS), "Dữ liệu mô hình")
+def split_pricing_data(dataset, test_size=0.2, random_state=42, columns=FEATURE_COLUMNS):
+    columns = checked_feature_columns(columns)
+    validate_columns(dataset, ("list_id", TARGET_COLUMN, *columns), "Dữ liệu mô hình")
     if not dataset.index.is_unique:
         raise ValueError("Index dữ liệu mô hình phải duy nhất.")
-    features = prepare_model_features(dataset)
+    features = prepare_model_features(dataset, columns)
     target = numeric_values(dataset[TARGET_COLUMN], TARGET_COLUMN)
     if target.le(0).any():
         raise ValueError("Giá phải lớn hơn 0.")

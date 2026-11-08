@@ -7,10 +7,11 @@ from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 
 from car_pricing.evaluation import evaluate_regression
+from car_pricing.features import FEATURE_COLUMNS
 from car_pricing.preprocessing import build_model_pipeline
 
 
-def build_model_pipelines(random_state=42, min_model_frequency=10, n_jobs=4):
+def build_model_pipelines(random_state=42, min_model_frequency=10, n_jobs=4, features=FEATURE_COLUMNS):
     estimators = {
         "Linear Regression": LinearRegression(),
         "Decision Tree": DecisionTreeRegressor(min_samples_leaf=2, random_state=random_state),
@@ -38,6 +39,7 @@ def build_model_pipelines(random_state=42, min_model_frequency=10, n_jobs=4):
             estimator,
             min_model_frequency=min_model_frequency,
             dense_output=name == "XGBoost",
+            features=features,
         )
         for name, estimator in estimators.items()
     }

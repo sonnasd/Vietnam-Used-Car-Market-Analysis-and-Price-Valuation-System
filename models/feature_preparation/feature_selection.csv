@@ -9,19 +9,19 @@ cars_cleaned.csv,category_name,Loại,Chỉ có một giá trị trên toàn b�
 cars_cleaned.csv,condition_ad,Loại,Chỉ có một giá trị trên toàn bộ dữ liệu
 cars_cleaned.csv,condition_ad_name,Loại,Chỉ có một giá trị trên toàn bộ dữ liệu
 cars_cleaned.csv,carbrand,Loại,"Mã số của carbrand_name, trùng thông tin"
-cars_cleaned.csv,carbrand_name,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
+cars_cleaned.csv,carbrand_name,Đầu vào,Được chọn sau tương quan và drop-column CV
 cars_cleaned.csv,carmodel,Loại,"Mã số của carmodel_name, trùng thông tin"
-cars_cleaned.csv,carmodel_name,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
+cars_cleaned.csv,carmodel_name,Đầu vào,Được chọn sau tương quan và drop-column CV
 cars_cleaned.csv,mfdate,Nguồn tạo đặc trưng,car_age = năm tham chiếu - mfdate
-cars_cleaned.csv,mileage_v2,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-cars_cleaned.csv,gearbox,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-cars_cleaned.csv,fuel,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-cars_cleaned.csv,carseats,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-cars_cleaned.csv,cartype,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-cars_cleaned.csv,carcolor,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-cars_cleaned.csv,carorigin,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
+cars_cleaned.csv,mileage_v2,Đầu vào,Được chọn sau tương quan và drop-column CV
+cars_cleaned.csv,gearbox,Đầu vào,Được chọn sau tương quan và drop-column CV
+cars_cleaned.csv,fuel,Đầu vào,Được chọn sau tương quan và drop-column CV
+cars_cleaned.csv,carseats,Đầu vào,Được chọn sau tương quan và drop-column CV
+cars_cleaned.csv,cartype,Đầu vào,Được chọn sau tương quan và drop-column CV
+cars_cleaned.csv,carcolor,Loại,Ứng viên bị loại theo drop-column CV
+cars_cleaned.csv,carorigin,Đầu vào,Được chọn sau tương quan và drop-column CV
 cars_cleaned.csv,region_v2,Loại,"Mã số của region_name, trùng thông tin"
-cars_cleaned.csv,region_name,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
+cars_cleaned.csv,region_name,Đầu vào,Được chọn sau tương quan và drop-column CV
 cars_cleaned.csv,region_name_v3,Loại,Gộp từ region_name theo địa giới mới; ít chi tiết hơn
 cars_cleaned.csv,area_name,Loại,"Cấp quận/huyện quá chi tiết, nhiều nhóm ít tin; đã dùng cấp tỉnh"
 cars_cleaned.csv,ward_name,Loại,"Cấp phường/xã quá chi tiết, nhiều nhóm ít tin; đã dùng cấp tỉnh"
@@ -32,15 +32,15 @@ cars_cleaned.csv,type,Loại,Chỉ có một giá trị trên toàn bộ dữ li
 cars_cleaned.csv,status,Loại,Chỉ có một giá trị trên toàn bộ dữ liệu
 cars_cleaned.csv,fetched_at,Loại,"Thời điểm thu thập dữ liệu, không phải thuộc tính của xe"
 cars_cleaned.csv,price_million,Mục tiêu,"Giá niêm yết, đơn vị triệu VNĐ"
-cars_cleaned.csv,car_age,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
+cars_cleaned.csv,car_age,Đầu vào,Được chọn sau tương quan và drop-column CV
 text_flags.csv,list_id,Khóa,Ghép và đối chiếu tin; không đưa vào mô hình
-text_flags.csv,co_mo_ta,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_chinh_chu,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_bao_duong_hang,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_khong_dam_dung,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_khong_ngap_nuoc,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_zin,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_khong_tua_odo,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_bao_test,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_tra_gop,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
-text_flags.csv,vb_bao_hanh,Đầu vào,Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column
+text_flags.csv,co_mo_ta,Loại,Ứng viên bị loại theo drop-column CV
+text_flags.csv,vb_chinh_chu,Đầu vào,Được chọn sau tương quan và drop-column CV
+text_flags.csv,vb_bao_duong_hang,Đầu vào,Được chọn sau tương quan và drop-column CV
+text_flags.csv,vb_khong_dam_dung,Đầu vào,Được chọn sau tương quan và drop-column CV
+text_flags.csv,vb_khong_ngap_nuoc,Đầu vào,Được chọn sau tương quan và drop-column CV
+text_flags.csv,vb_zin,Đầu vào,Được chọn sau tương quan và drop-column CV
+text_flags.csv,vb_khong_tua_odo,Đầu vào,Được chọn sau tương quan và drop-column CV
+text_flags.csv,vb_bao_test,Loại,Ứng viên bị loại theo drop-column CV
+text_flags.csv,vb_tra_gop,Loại,Ứng viên bị loại theo drop-column CV
+text_flags.csv,vb_bao_hanh,Loại,Ứng viên bị loại theo drop-column CV

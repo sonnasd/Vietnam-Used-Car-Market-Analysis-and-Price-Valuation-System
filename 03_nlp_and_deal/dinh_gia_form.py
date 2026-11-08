@@ -10,6 +10,9 @@ TRUONG_GOI_Y = {
     "gearbox": "Hộp số", "fuel": "Nhiên liệu",
     "cartype": "Kiểu xe", "carseats": "Số chỗ",
 }
+# Thông tin người dùng có thể nhập thêm. Cột nào không có trong features của mô hình
+# (vd. carcolor, co_mo_ta sau khi loại ở notebook 05) vẫn được kiểm tra nhưng không đưa vào dự đoán.
+THONG_TIN_THEM = ("fuel", "cartype", "carseats", "carcolor", "carorigin", "co_mo_ta", *TEN_CO)
 
 
 def so_hop_le(value, ten, minimum, maximum=None, nguyen=False):
@@ -41,7 +44,7 @@ def chuan_bi_xe(data, features, nam_du_lieu, hang, dong_xe, nam_san_xuat,
     xe = {cot: 0 if cot == "co_mo_ta" or cot.startswith("vb_") else "Không rõ"
           for cot in features}
     them = {} if thong_tin_them is None else dict(thong_tin_them)
-    cho_phep = set(features) - {
+    cho_phep = (set(features) | set(THONG_TIN_THEM)) - {
         "carbrand_name", "carmodel_name", "car_age", "mileage_v2", "gearbox", "region_name"
     }
     if set(them) - cho_phep:
@@ -198,6 +201,6 @@ class FormDinhGia:
             f"<p><b>Số cam kết tìm thấy:</b> {mo_ta['so_cam_ket']}</p>"
             f"<p><b>Nội dung:</b> {escape(mo_ta['noi_dung'])}</p>"
             "<p>Thông tin này do người bán công bố, chưa phải tình trạng xe đã được kiểm chứng.</p>"
-        ) + "<details><summary>Thông số đã dùng</summary>" + "".join(
+        ) + "<details><summary>Thông số đã nhập</summary>" + "".join(
             f"<p>{escape(str(k))}: {escape(str(v))}</p>" for k, v in thong_so.items()
         ) + "</details><p>Giá rao tham khảo; cần kiểm tra xe thực tế. Khoảng ±MAE không phải khoảng tin cậy.</p>"

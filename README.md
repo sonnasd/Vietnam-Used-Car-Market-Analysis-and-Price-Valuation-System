@@ -62,7 +62,7 @@ Vietnam-Used-Car-Market-Analysis-and-Price-Valuation-System/
 |   |   `-- descriptions_report.json   do phu, thoi diem va gioi han lan chay
 |   |-- processed/
 |   |   |-- cars_cleaned.csv           du lieu sach: 13.520 tin (notebook 02)
-|   |   `-- text_flags.csv             10 text flags theo list_id (notebook 04)
+|   |   `-- text_flags.csv             9 co van ban theo list_id (notebook 04)
 |   `-- geojson/                       ban do 63 tinh/thanh va toa do tam tinh
 |-- models/
 |   |-- car_pricing_model.pkl          Pipeline XGBoost (notebook 05)
@@ -95,16 +95,6 @@ Luong du lieu giua cac notebook:
 - 01 -> data/raw/descriptions.csv -> 04 -> data/processed/text_flags.csv -> 05
 - 05 -> models/car_pricing_model.pkl va models/error_analysis/ -> 06
 
-Notebook 05 tach buoc chuan bi du lieu thanh cac module trong `car_pricing/`: `data.py` doc hai nguon, `validation.py` kiem tra du lieu, `features.py` tao va chon 21 dac trung, `splitting.py` chia train/test, `preprocessing.py` ma hoa trong Pipeline. Nam tham chieu tuoi xe la 2026, duoc ghi vao metadata mo hinh. Danh sach dac trung duoc chon theo y nghia du lieu; khong dung importance tren test de loai cot.
-
-Cac bang doi chieu cot duoc chon/loai, tan suat dong xe theo train, tham so chuan hoa va anh xa cot one-hot duoc notebook 05 luu tai `models/feature_preparation/`. Median, StandardScaler va nhom dong xe hiem chi duoc hoc tu train hoac phan train cua tung fold CV. Du lieu nguon van da qua loc IQR tren toan bo du lieu o notebook 02; ket qua danh gia ap dung cho tap tin da loc nay.
-
-Kiem tra phan chuan bi du lieu tu goc du an:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
 ## 5. Quy uoc lam viec
 
 - Moi nguoi chi sua notebook trong thu muc cua minh: hai nguoi cung sua mot file .ipynb tren hai nhanh rat de xung dot khi merge.
@@ -117,7 +107,7 @@ python -m unittest discover -s tests -v
 
 ## 6. Huong dan cai dat moi truong
 
-Nen dung Python 3.12. Mo hinh duoc luu bang scikit-learn 1.9.1 va xgboost 3.4.1 (ghi trong `models/car_pricing_model.metadata.json`); may cai phien ban cu hon co the khong nap duoc file .pkl.
+Nen dung Python 3.12. Mo hinh duoc luu bang scikit-learn 1.9.0 va xgboost 3.4.1 (ghi trong `models/car_pricing_model.metadata.json`); may cai phien ban cu hon co the khong nap duoc file .pkl.
 
 Cai dat cac goi thu vien can thiet (cai truc tiep vao Python 3.12, hoac vao moi truong ao neu muon):
 

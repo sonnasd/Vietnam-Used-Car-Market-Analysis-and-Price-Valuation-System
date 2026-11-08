@@ -2,12 +2,18 @@ import numpy as np
 import pandas as pd
 from sklearn.utils.validation import check_is_fitted
 
-from .features import CATEGORICAL_FEATURES, FEATURE_COLUMNS, NUMERIC_FEATURES, TEXT_FEATURES
+from .features import (
+    CANDIDATE_CATEGORICAL_FEATURES,
+    CANDIDATE_TEXT_FEATURES,
+    DROPPED_FEATURES,
+    FEATURE_COLUMNS,
+    NUMERIC_FEATURES,
+)
 
 FEATURE_GROUPS = {
     "Số": NUMERIC_FEATURES,
-    "Danh mục": CATEGORICAL_FEATURES,
-    "Text flags": TEXT_FEATURES,
+    "Danh mục": CANDIDATE_CATEGORICAL_FEATURES,
+    "Text flags": CANDIDATE_TEXT_FEATURES,
 }
 
 
@@ -37,7 +43,9 @@ EXCLUSION_REASONS = {
 
 def _column_role(frame, column):
     if column in FEATURE_COLUMNS:
-        return "Đầu vào", "Thuộc danh sách đặc trưng; kiểm chứng ở bảng drop-column"
+        return "Đầu vào", "Được chọn sau tương quan và drop-column CV"
+    if column in DROPPED_FEATURES:
+        return "Loại", "Ứng viên bị loại theo drop-column CV"
     if column in COLUMN_ROLES:
         return COLUMN_ROLES[column]
     if frame[column].nunique(dropna=False) == 1:

@@ -18,20 +18,15 @@
     "gearbox",
     "fuel",
     "cartype",
-    "carcolor",
     "carorigin",
     "carseats",
     "region_name",
-    "co_mo_ta",
     "vb_chinh_chu",
     "vb_bao_duong_hang",
     "vb_khong_dam_dung",
     "vb_khong_ngap_nuoc",
     "vb_zin",
-    "vb_khong_tua_odo",
-    "vb_bao_test",
-    "vb_tra_gop",
-    "vb_bao_hanh"
+    "vb_khong_tua_odo"
   ],
   "feature_groups": {
     "Số": [
@@ -44,22 +39,17 @@
       "gearbox",
       "fuel",
       "cartype",
-      "carcolor",
       "carorigin",
       "carseats",
       "region_name"
     ],
     "Text flags": [
-      "co_mo_ta",
       "vb_chinh_chu",
       "vb_bao_duong_hang",
       "vb_khong_dam_dung",
       "vb_khong_ngap_nuoc",
       "vb_zin",
-      "vb_khong_tua_odo",
-      "vb_bao_test",
-      "vb_tra_gop",
-      "vb_bao_hanh"
+      "vb_khong_tua_odo"
     ]
   },
   "feature_dtypes": {
@@ -70,23 +60,25 @@
     "gearbox": "object",
     "fuel": "object",
     "cartype": "object",
-    "carcolor": "object",
     "carorigin": "object",
     "carseats": "object",
     "region_name": "object",
-    "co_mo_ta": "int8",
     "vb_chinh_chu": "int8",
     "vb_bao_duong_hang": "int8",
     "vb_khong_dam_dung": "int8",
     "vb_khong_ngap_nuoc": "int8",
     "vb_zin": "int8",
-    "vb_khong_tua_odo": "int8",
-    "vb_bao_test": "int8",
-    "vb_tra_gop": "int8",
-    "vb_bao_hanh": "int8"
+    "vb_khong_tua_odo": "int8"
   },
+  "dropped_features": [
+    "carcolor",
+    "co_mo_ta",
+    "vb_bao_test",
+    "vb_tra_gop",
+    "vb_bao_hanh"
+  ],
   "data_reference_year": 2026,
-  "encoded_feature_count": 332,
+  "encoded_feature_count": 315,
   "feature_selection_method": "domain_rules_and_drop_column_cv",
   "selected_params": {
     "model__colsample_bytree": 0.9,
@@ -104,29 +96,29 @@
   "random_state": 42,
   "test_size": 0.2,
   "min_model_frequency": 10,
-  "R2_cv": 0.8921910985570678,
+  "R2_cv": 0.8931222146929487,
   "test_metrics": {
-    "R2": 0.8889117029517358,
-    "MAE": 46.852906942050055,
-    "RMSE": 80.5484531052481,
+    "R2": 0.8873225292282243,
+    "MAE": 46.92636119162958,
+    "RMSE": 81.12255019018681,
     "Meets_R2_target": true
   },
-  "python_version": "3.12.13",
+  "python_version": "3.12.10",
   "library_versions": {
-    "numpy": "2.5.4",
-    "pandas": "3.1.0",
-    "scikit-learn": "1.9.1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
     "xgboost": "3.4.1",
-    "joblib": "1.6.0"
+    "joblib": "1.5.3"
   },
   "input_sha256": {
     "data\\processed\\cars_cleaned.csv": "b7172993d025818cb5bb0193506ee7b2d697c1d82a370edacf37502b47b786fa",
     "data\\processed\\text_flags.csv": "f69892a95b5ab80d4820dc9620ede3f153426465fbdda59ade67c6ab5d4ab905"
   },
-  "file_size_bytes": 920954,
-  "file_size_mb": 0.920954,
-  "sha256": "9d4a479a10295a07e292965c3705dd6ca7ac90803f2ec2f6dd0696b700dc07b7",
+  "file_size_bytes": 926738,
+  "file_size_mb": 0.926738,
+  "sha256": "9418867644c83f7f208105eb76a4352995d4e26797f81756c9c4679fdd0425c7",
   "verified_rows": 2704,
-  "n_features": 21,
+  "n_features": 16,
   "max_prediction_difference": 0.0
 }

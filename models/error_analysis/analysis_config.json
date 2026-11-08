@@ -28,27 +28,22 @@
     "gearbox",
     "fuel",
     "cartype",
-    "carcolor",
     "carorigin",
     "carseats",
     "region_name",
-    "co_mo_ta",
     "vb_chinh_chu",
     "vb_bao_duong_hang",
     "vb_khong_dam_dung",
     "vb_khong_ngap_nuoc",
     "vb_zin",
-    "vb_khong_tua_odo",
-    "vb_bao_test",
-    "vb_tra_gop",
-    "vb_bao_hanh"
+    "vb_khong_tua_odo"
   ],
   "versions": {
-    "numpy": "2.5.4",
-    "pandas": "3.1.0",
-    "scikit-learn": "1.9.1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
     "xgboost": "3.4.1",
-    "matplotlib": "3.11.2"
+    "matplotlib": "3.11.1"
   },
   "input_sha256": {
     "data\\processed\\cars_cleaned.csv": "b7172993d025818cb5bb0193506ee7b2d697c1d82a370edacf37502b47b786fa",

@@ -1,15 +1,15 @@
 ﻿Metric,Giá trị
 Số tin test,2704.0
-Residual trung bình (triệu VNĐ),1.736899026611012
-Residual trung vị (triệu VNĐ),0.8734588623046875
-MAE (triệu VNĐ),46.852906942050055
-RMSE (triệu VNĐ),80.5484531052481
-P90 sai số tuyệt đối (triệu VNĐ),106.49011535644533
-P95 sai số tuyệt đối (triệu VNĐ),158.06478424072262
-MAPE (%),17.10990267628281
-Trung vị sai số phần trăm (%),6.809845612112399
-Tỷ lệ sai lệch không quá 10% (%),62.24112426035503
-Tỷ lệ sai lệch không quá 20% (%),83.0991124260355
-Tỷ lệ dự đoán cao hơn giá rao (%),48.8905325443787
-Tỷ lệ dự đoán thấp hơn giá rao (%),51.109467455621306
-Tỷ trọng SSE của 5% tin sai nhiều nhất (%),65.41186735053745
+Residual trung bình (triệu VNĐ),1.1356979353186702
+Residual trung vị (triệu VNĐ),0.04390716552734375
+MAE (triệu VNĐ),46.92636119162958
+RMSE (triệu VNĐ),81.12255019018681
+P90 sai số tuyệt đối (triệu VNĐ),105.45212707519532
+P95 sai số tuyệt đối (triệu VNĐ),157.5126495361328
+MAPE (%),17.056925700514192
+Trung vị sai số phần trăm (%),6.992075251436782
+Tỷ lệ sai lệch không quá 10% (%),63.942307692307686
+Tỷ lệ sai lệch không quá 20% (%),83.35798816568047
+Tỷ lệ dự đoán cao hơn giá rao (%),49.963017751479285
+Tỷ lệ dự đoán thấp hơn giá rao (%),50.036982248520715
+Tỷ trọng SSE của 5% tin sai nhiều nhất (%),66.77022929528718

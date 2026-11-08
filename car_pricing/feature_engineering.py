@@ -8,7 +8,7 @@ from .error_segments import BIN_SEGMENTS
 from .evaluation import evaluate_regression
 from .feature_reports import FEATURE_GROUPS
 from .feature_selection import cv_r2_scores
-from .features import CATEGORICAL_FEATURES, MISSING_LABEL, NUMERIC_FEATURES
+from .features import CANDIDATE_CATEGORICAL_FEATURES, MISSING_LABEL, NUMERIC_FEATURES
 from .preprocessing import build_model_pipeline
 
 IQR_FACTOR = 1.5
@@ -28,7 +28,7 @@ def missing_value_report(X_train):
             values = X_train[column]
             if column in NUMERIC_FEATURES:
                 strategy, fill_value = "Trung vị của train", values.median()
-            elif column in CATEGORICAL_FEATURES:
+            elif column in CANDIDATE_CATEGORICAL_FEATURES:
                 strategy, fill_value = "Nhãn riêng cho giá trị thiếu", MISSING_LABEL
             else:
                 strategy, fill_value = "Không cần: cờ luôn là 0/1", "-"
@@ -45,7 +45,7 @@ def missing_value_report(X_train):
 
 def categorical_encoding_report(X_train, min_model_frequency):
     rows = []
-    for column in CATEGORICAL_FEATURES:
+    for column in CANDIDATE_CATEGORICAL_FEATURES:
         counts = X_train[column].fillna(MISSING_LABEL).value_counts()
         rare = counts.lt(min_model_frequency)
         grouped = column == "carmodel_name"
